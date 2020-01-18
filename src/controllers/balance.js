@@ -1,15 +1,9 @@
-const balanceCalculate = (transactionsList) => (req, res) => {
-  const balance = transactionsList.reduce((accumulator, transaction) => {
-    // We can also assume that if it is not debit, is credit, since we validate
-    // That the type is included in one of those strings
-    // But i preferred to be explicit here since it involves money
-    if(transaction.type === 'debit') accumulator -= transaction.amount;
-    if(transaction.type === 'credit') accumulator += transaction.amount;
-    return accumulator;
-  }, 0);
-  res.send({ balance });
+const balance = require('../utils/balance');
+
+const balanceIndex = (transactionsList) => (req, res) => {
+  res.send({ balance: balance(transactionsList) });
 };
 
 module.exports = {
-  balanceCalculate
+  balanceIndex
 };

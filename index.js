@@ -10,7 +10,8 @@ const port = process.env.PORT || 3000;
 const bundler = new Bundler('./src/client/index.html', {});
 
 const { transactionsIndex, transactionsShow, transactionsCreate } = require('./src/controllers/transactions');
-const { balanceCalculate } = require('./src/controllers/balance');
+const { balanceIndex } = require('./src/controllers/balance');
+const balance = require('./src/utils/balance');
 
 const transactionsList = [];
 
@@ -19,11 +20,16 @@ app.use(bodyParser.json());
 app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
   body('type').notEmpty().isIn(['debit', 'credit']),
-  body('amount').notEmpty().isFloat(),
+  body('amount').notEmpty().isFloat().custom((value, { req }) => {
+    if(req.body.type === 'debit' && balance(transactionsList) - value < 0) {
+      throw new Error('The balance cannot be lower than 0 after a transaction');
+    }
+    return true;
+  }),
 ], transactionsCreate(transactionsList));
 app.get('/api/v1/transactions/:id', transactionsShow(transactionsList));
 
-app.get('/api/v1/balance', balanceCalculate(transactionsList));
+app.get('/api/v1/balance', balanceIndex(transactionsList));
 
 app.use(bundler.middleware());
 
