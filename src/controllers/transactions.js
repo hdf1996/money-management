@@ -18,7 +18,7 @@ const transactionsCreate = (transactionsList) => (req, res) => {
       amount: parseFloat(amount),
       effectiveDate: new Date()
     };
-    transactionsList.push(newTransaction);
+    transactionsList.unshift(newTransaction);
     res.status(201).send(newTransaction);
   } else {
     res.status(422).send(errors)

@@ -7,9 +7,7 @@ const bodyParser = require('body-parser');
 const { body } = require('express-validator');
 const app = express();
 const port = process.env.PORT || 3000;
-const bundler = new Bundler('./src/client/index.html', {
-  
-});
+const bundler = new Bundler('./src/client/index.html', {});
 
 const { transactionsIndex, transactionsShow, transactionsCreate } = require('./src/controllers/transactions');
 const { balanceCalculate } = require('./src/controllers/balance');
@@ -17,7 +15,6 @@ const { balanceCalculate } = require('./src/controllers/balance');
 const transactionsList = []
 
 app.use(bodyParser.json())
-app.use(bundler.middleware());
 
 app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
@@ -28,5 +25,6 @@ app.get('/api/v1/transactions/:id', transactionsShow(transactionsList));
 
 app.get('/api/v1/balance', balanceCalculate(transactionsList));
 
+app.use(bundler.middleware());
 
 app.listen(port, () => console.log(`Money Accounting listening on port ${port}!`));
