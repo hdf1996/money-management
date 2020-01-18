@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/hdf1986/money-management.svg?branch=master)](https://travis-ci.org/hdf1986/money-management)
 
 # Money Management
+[![Screenshot](https://github.com/hdf1986/money-management/raw/master/screenshot.png)
+
 
 ## Node version
 It's suggested to run at least Node V10.16.3
