@@ -33,7 +33,9 @@ const TransactionList = () => {
                 <Card key={transaction.id}>
                   <Card.Header>
                     <Accordion.Toggle as={Button} variant="link" eventKey={index}>
-                      {capitalizeFirstLetter(transaction.type)} - {formatMoney(transaction.amount)}
+                      <span style={{color: transaction.type === 'credit' ? 'green' : 'red'}}>
+                        {capitalizeFirstLetter(transaction.type)} - {formatMoney(transaction.amount)}
+                      </span>
                     </Accordion.Toggle>
                   </Card.Header>
                   <Accordion.Collapse eventKey={index}>
