@@ -29,14 +29,14 @@ const TransactionList = () => {
           'No transactions' :
           (
             <Accordion>
-              {transactions.map(transaction => (
+              {transactions.map((transaction, index) => (
                 <Card key={transaction.id}>
                   <Card.Header>
-                    <Accordion.Toggle as={Button} variant="link" eventKey={transaction.id}>
+                    <Accordion.Toggle as={Button} variant="link" eventKey={index}>
                       {capitalizeFirstLetter(transaction.type)} - {formatMoney(transaction.amount)}
                     </Accordion.Toggle>
                   </Card.Header>
-                  <Accordion.Collapse eventKey={transaction.id}>
+                  <Accordion.Collapse eventKey={index}>
                     <Card.Body>
                       <ListGroup>
                         <ListGroup.Item><strong>ID:</strong> {transaction.id}</ListGroup.Item>
