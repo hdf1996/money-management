@@ -1,3 +1,3 @@
 export default money => {
-    return `$${money.toFixed(2)}`;
+  return `$${money.toFixed(2)}`;
 };

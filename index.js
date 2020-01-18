@@ -18,8 +18,8 @@ app.use(bodyParser.json());
 
 app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
-    body('type').notEmpty().isIn(['debit', 'credit']),
-    body('amount').notEmpty().isFloat(),
+  body('type').notEmpty().isIn(['debit', 'credit']),
+  body('amount').notEmpty().isFloat(),
 ], transactionsCreate(transactionsList));
 app.get('/api/v1/transactions/:id', transactionsShow(transactionsList));
 
