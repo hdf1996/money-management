@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/hdf1986/money-management.svg?branch=master)](https://travis-ci.org/hdf1986/money-management)
+
 # Money Management
 
 ## Node version
