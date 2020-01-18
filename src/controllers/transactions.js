@@ -5,34 +5,34 @@ const uuid = require('uuid-random');
 const { validationResult } = require('express-validator');
 
 const transactionsIndex = (transactionsList) => (req, res) => {
-  res.send(transactionsList);
+    res.send(transactionsList);
 };
 
 const transactionsCreate = (transactionsList) => (req, res) => {
-  const errors = validationResult(req)
-  if(errors.isEmpty()) {
-    const { type, amount } = req.body
-    const newTransaction = {
-      id: uuid(),
-      type,
-      amount: parseFloat(amount),
-      effectiveDate: new Date()
-    };
-    transactionsList.unshift(newTransaction);
-    res.status(201).send(newTransaction);
-  } else {
-    res.status(422).send(errors)
-  }
-}
+    const errors = validationResult(req);
+    if(errors.isEmpty()) {
+        const { type, amount } = req.body;
+        const newTransaction = {
+            id: uuid(),
+            type,
+            amount: parseFloat(amount),
+            effectiveDate: new Date()
+        };
+        transactionsList.unshift(newTransaction);
+        res.status(201).send(newTransaction);
+    } else {
+        res.status(422).send(errors);
+    }
+};
 
 const transactionsShow = (transactionsList) => (req, res) => {
-  const transaction = transactionsList.find(({id}) => id === req.params.id)
-  if(!transaction) return res.status(404).send({ message: 'Not found' })
-  res.send(transaction);
+    const transaction = transactionsList.find(({id}) => id === req.params.id);
+    if(!transaction) return res.status(404).send({ message: 'Not found' });
+    res.send(transaction);
 };
 
 module.exports = {
-  transactionsIndex,
-  transactionsCreate,
-  transactionsShow
-}
+    transactionsIndex,
+    transactionsCreate,
+    transactionsShow
+};

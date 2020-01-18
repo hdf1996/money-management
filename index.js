@@ -12,14 +12,14 @@ const bundler = new Bundler('./src/client/index.html', {});
 const { transactionsIndex, transactionsShow, transactionsCreate } = require('./src/controllers/transactions');
 const { balanceCalculate } = require('./src/controllers/balance');
 
-const transactionsList = []
+const transactionsList = [];
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
-  body('type').notEmpty().isIn(['debit', 'credit']),
-  body('amount').notEmpty().isFloat(),
+    body('type').notEmpty().isIn(['debit', 'credit']),
+    body('amount').notEmpty().isFloat(),
 ], transactionsCreate(transactionsList));
 app.get('/api/v1/transactions/:id', transactionsShow(transactionsList));
 
