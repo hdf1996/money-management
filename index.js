@@ -1,3 +1,4 @@
+const Bundler = require('parcel-bundler');
 const express = require('express');
 const bodyParser = require('body-parser');
 // If we had some orm, we can probably
@@ -6,12 +7,17 @@ const bodyParser = require('body-parser');
 const { body } = require('express-validator');
 const app = express();
 const port = process.env.PORT || 3000;
+const bundler = new Bundler('./src/client/index.html', {
+  
+});
+
 const { transactionsIndex, transactionsShow, transactionsCreate } = require('./src/controllers/transactions');
 const { balanceCalculate } = require('./src/controllers/balance');
 
 const transactionsList = []
 
 app.use(bodyParser.json())
+app.use(bundler.middleware());
 
 app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
