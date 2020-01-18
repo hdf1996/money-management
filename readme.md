@@ -22,6 +22,7 @@ npm run dev
 
 ## Testing and linting
 There are no tests yet because the lack of time
+
 To run the linter you can do:
 ```bash
 npm run lint
@@ -31,9 +32,7 @@ and to use the autofix function of Eslint
 npm run lint:fix
 ```
 
-## Deploy & production mode
-The deploy to heroku is configured to deploy whenever a new push to the default branch(master) is made, so just mergin pull request or commiting to master deploy's automatically
-
+## Production mode
 In order to run the app in production mode you should do:
 
 ```
