@@ -21,11 +21,12 @@ app.get('/api/v1/transactions', transactionsIndex(transactionsList));
 app.post('/api/v1/transactions', [
   body('type').notEmpty().isIn(['debit', 'credit']),
   body('amount').notEmpty().isFloat().custom((value, { req }) => {
+    if(req.body.amount <= 0) throw new Error('The amount should be a positive value');
     if(req.body.type === 'debit' && balance(transactionsList) - value < 0) {
       throw new Error('The balance cannot be lower than 0 after a transaction');
     }
     return true;
-  }),
+  })
 ], transactionsCreate(transactionsList));
 app.get('/api/v1/transactions/:id', transactionsShow(transactionsList));
 
